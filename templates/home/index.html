@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show " role="alert"
+        style="padding-bottom: 5px; padding-top: 4px; margin-bottom:0;">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <h3>Enter Your details......</h3>
+
+    <div class="container">
+        <!-- Personal modal -->
+        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Personal Details
+        </button><br>
+
+        <!-- Education modal -->
+        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#educationModal">
+            Education
+        </button><br>
+
+        <!-- Experience modal -->
+        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#experianceModal">
+            Experience
+        </button><br>
+
+        <!-- Project modal -->
+        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#projectModal">
+            Project
+        </button><br>
+
+        <!-- Social modal -->
+        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#socialModal">
+            Social Media
+        </button><br>
+
+        <!-- Additional modal -->
+        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#additionalModal">
+            Additional Info
+        </button><br>
+
+        <!-- Certification modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#certificationModal">
+            Certification 
+        </button>
+    </div>
+
+    <!--Personal Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/profile/personal">
+                        {% csrf_token %}
+                        <div class="form-group mb-2">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name='name'
+                                placeholder='Enter Your Full Name' required="true">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" name='email'
+                                placeholder='jc.junaid.chaudhary@gmail.com' aria-describedby="emailHelp"
+                                required="true">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="phone">Phone</label>
+                            <input type="tel" class="form-control" pattern="[0-9]{10}" id="phone" name='phone'
+                                placeholder='9702737441'>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="dob">Date of Birth</label>
+                            <input type="text" class="form-control" id="dob" name='dob' placeholder='dd/mm/yyyy'>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="formFile" class="form-label">Profile Picture</label>
+                            <input class="form-control" type="file" id="formFile" name="picture">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="objctive">Objctive</label>
+                            <textarea class="form-control" id="objctive" name="objective" rows="2"></textarea>
+                        </div>
+
+
+                        <div class="mb-2">
+                            <label for="inputCountry" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="inputCountry" , name="country">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="inputState" class="form-label">State</label>
+                            <select id="inputState" class="form-select" name="state">
+                                <option selected>Choose...</option>
+                                <option>Maharashtra</option>
+                                <option>Gujrat</option>
+                                <option>Uttar Pardesh</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="inputCity" class="form-label">City</label>
+                            <input type="text" class="form-control" id="inputCity" name="city">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Education Modal -->
+    <div class="modal fade" id="educationModal" tabindex="-1" aria-labelledby="educationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Education</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/profile/education">
+                        {% csrf_token %}
+                        <div class="mb-2">
+                            <label for="inputEducation" class="form-label">Education</label>
+                            <select id="inputEducation" class="form-select" name="education">
+                                <option selected>Choose...</option>
+                                <option>SSC</option>
+                                <option>HSC</option>
+                                <option>Graduation</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="institute">Institute Name</label>
+                            <input type="text" class="form-control" id="institute" name='institute' required="true">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="percentage">Percentage</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" , id="percentage" name="percentage">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group mb-2">
+                            <label for="passing_year">Passing Year</label>
+                            <input type="text" class="form-control" id="passing_year" name='passing_year'>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Experiance Modal -->
+    <div class="modal fade" id="experianceModal" tabindex="-1" aria-labelledby="experianceModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="experianceModalLabel">Experiance</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/profile/experience">
+                        {% csrf_token %}
+                        <div class="form-group mb-2">
+                            <label for="company">Company Name</label>
+                            <input type="text" class="form-control" id="name" name='company' required="true">
+                        </div>
+
+
+                        <div class="form-group mb-2">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="location" name='location'>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="joining_date">Joining Date</label>
+                            <input type="text" class="form-control" id="joining_date" name='joining_date'>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="leaving_date">End Date</label>
+                            <input type="text" class="form-control" id="leaving_date" name='leaving_date'>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="designation">Designation</label>
+                            <input type="text" class="form-control" id="designation" name='designation'>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="total_Experience">Experience</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" , id="total_Experience" name="total_Experience">
+                                <span class="input-group-text">Year</span>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Project Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="projectModalLabel">Projects</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/profile/project">
+                        {% csrf_token %}
+                        <div class="form-group mb-2">
+                            <label for="name">Project Name</label>
+                            <input type="text" class="form-control" id="name" name='name' required="true">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="desc">Project Description</label>
+                            <input type="text" class="form-control" id="desc" name='desc' required="true">
+                        </div>
+
+
+                        <div class="form-group mb-2">
+                            <label for="joining_date">Start Date</label>
+                            <input type="text" class="form-control" id="joining_date" name='start_date'>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="end_date">End Date</label>
+                            <input type="text" class="form-control" id="end_date" name='end_date'>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="summary">Summary</label>
+                            <textarea class="form-control" id="summary" name="summary" rows="2"></textarea>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Social_Profile Modal -->
+    <div class="modal fade" id="socialModal" tabindex="-1" aria-labelledby="socialModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="socialModalLabel">Projects</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/profile/social">
+                        {% csrf_token %}
+
+                        <div class="mb-2">
+                            <label for="name" class="form-label">Social Profile</label>
+                            <select id="name" class="form-select" name="name">
+                                <option selected>Choose...</option>
+                                <option>LinkedIn</option>
+                                <option>GitHub</option>
+                                <option>Naukri.com</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="url">Project Link</label>
+                            <input type="url" class="form-control" id="url" name='url' required="true">
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--Additional Information Modal -->
+    <div class="modal fade" id="additionalModal" tabindex="-1" aria-labelledby="additionalModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="additionalModalLabel">Additional Information</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/profile/add_info">
+                        {% csrf_token %}
+                        <div class="form-group mb-2">
+                            <label for="skills">Skills</label>
+                            <input type="text" class="form-control" id="skills" name='skills' required="true">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="marital_status" class="form-label">Marital Status</label>
+                            <select id="marital_status" class="form-select" name="marital_status">
+                                <option selected>Choose...</option>
+                                <option>Single</option>
+                                <option>Married</option>
+                                <option>Divorced</option>
+                                <option>Seprated</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="website">Website Link</label>
+                            <input type="url" class="form-control" id="website" name='website' required="true">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="language" class="form-label">Language</label>
+                            <input type="text" class="form-control" id="language" name="language">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+     <!--Certification Modal -->
+     <div class="modal fade" id="certificationModal" tabindex="-1" aria-labelledby="certificationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="certificationModalLabel">Certification</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="/profile/certification">
+                        {% csrf_token %}
+
+                        <div class="form-group mb-2">
+                            <label for="certification">Certification In</label>
+                            <input type="text" class="form-control" id="name" name='certification' required="true">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="url">Certification Link</label>
+                            <input type="url" class="form-control" id="url" name='url' required="true">
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
