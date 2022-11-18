@@ -1,19 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
 
 from home.models import *
+from home.resume import generateResume
+
 # Create your views here.
 def home(request):
     return render(request,'home/index.html')
 
+# @login_required
 def personal(request):
     if request.method == 'POST':
         user_id=request.user.id
-        print("user...........................",user_id)
+        # print("user...........................",user_id)
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
+        sex = request.POST.get('sex')
         dob = request.POST.get('dob')
         picture = request.POST.get('picture')
         objective = request.POST.get('objective')
@@ -22,14 +26,15 @@ def personal(request):
         city= request.POST.get('city')
 
         messages.success(request, 'Your message has been sent!')
-        details=Personal.objects.create(user_id=user_id, name=name,email=email,mobile=phone,dob=dob,profile_picture=picture,objective=objective,country=country,state=state,city=city)
+        details=Personal.objects.create(user_id=user_id, name=name,email=email,mobile=phone,sex=sex,dob=dob,profile_picture=picture,objective=objective,country=country,state=state,city=city)
         details.save()
-        return render(request, 'home/index.html')
+        return redirect('home')
         
     # return HttpResponse("personal details")
 
 def education(request):
     if request.method == 'POST':
+        print("Education...")
         user_id=request.user.id
         institute = request.POST.get('institute')
         education = request.POST.get('education')
@@ -39,7 +44,7 @@ def education(request):
         messages.success(request, 'Your message has been sent!')
         details=Education.objects.create(user_id=user_id, institute=institute,education=education,percentage=percentage,passing_year=passing_year)
         details.save()
-        return render(request, 'home/index.html')
+        return redirect('home')
     return HttpResponse('Education')
     # return render(request, 'home/index.html')
 
@@ -51,12 +56,12 @@ def experience(request):
         joining_date = request.POST.get('joining_date')
         leaving_date = request.POST.get('leaving_date')
         designation = request.POST.get('designation')
-        total_Experience = request.POST.get('total_Experience')
+        workingOn = request.POST.get('workingOn')
 
         messages.success(request, 'Your message has been sent!')
-        details=Experience.objects.create(user_id=user_id, company_name=company,location=location,joining_date=joining_date,leaving_date=leaving_date,designation=designation,total_Experience=total_Experience)
+        details=Experience.objects.create(user_id=user_id, company_name=company,location=location,joining_date=joining_date,leaving_date=leaving_date,designation=designation,workingOn=workingOn)
         details.save()
-        return render(request, 'home/index.html')
+        return redirect('home')
     return HttpResponse("experieance")
 
 def project(request):
@@ -64,15 +69,11 @@ def project(request):
         user_id=request.user.id
         name = request.POST.get('name')
         desc = request.POST.get('desc')
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        summary = request.POST.get('summary')
-        
 
-        details=Project.objects.create(user_id=user_id, project_name=name,project_desc=desc,start_date=start_date,end_date=end_date,summary=summary)
+        details=Project.objects.create(user_id=user_id, project_name=name,project_desc=desc)
         details.save()
         messages.success(request, 'Your message has been sent!')
-        return render(request, 'home/index.html')
+        return redirect('home')
     return HttpResponse("Project")
 
 def social(request):
@@ -84,7 +85,7 @@ def social(request):
         details=SocialProfile.objects.create(user_id=user_id,social_profile=profile,url=url)
         details.save()
         messages.success(request, 'Your message has been sent!')
-        return render(request,'home/index.html')
+        return redirect('home')
     return HttpResponse("Social Education")
 
 def add_info(request):
@@ -95,10 +96,10 @@ def add_info(request):
         website=request.POST.get('website')
         language=request.POST.get('language')
 
-        details=AdditionalInfo.objects.create(user_id=user_id,skills=skills,Marital_Status=marital_status,website=website,Language=language)
+        details=AdditionalInfo.objects.create(user_id=user_id,skills=skills,marital_Status=marital_status,website=website,language=language)
         details.save()
         messages.success(request, 'Your message has been sent!')
-        return render(request,'home/index.html')
+        return redirect('home')
     return HttpResponse("Additional Info")
 
 def certification(request):
@@ -110,6 +111,18 @@ def certification(request):
         details=Certification(user_id=user_id,certification=certification,url=url)
         details.save()
         messages.success(request, 'Your message has been sent!')
-        return render(request,'home/index.html')
+        return redirect('home')
 
     return HttpResponse("certification")
+
+def resume(request):
+    id=request.user.id
+    personal=Personal.objects.get(user_id=id)
+    education=Education.objects.filter(user_id=id)
+    experience=Experience.objects.filter(user_id=id)
+    project=Project.objects.filter(user_id=id)
+    social=SocialProfile.objects.filter(user_id=id)
+    add_Info=AdditionalInfo.objects.get(user_id=id)
+    # certify=Certification.objects.get(user_id=id)
+    generateResume(personal=personal,education=education,experience=experience,projects=project,social=social,add_Info=add_Info)
+    return HttpResponse(personal.name)

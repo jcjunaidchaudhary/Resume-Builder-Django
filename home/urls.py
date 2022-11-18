@@ -10,4 +10,5 @@ urlpatterns=[
     path('social',views.social,name='social'),
     path('add_info',views.add_info,name='add_info'),
     path('certification',views.certification,name='certification'),
+    path('resume',views.resume,name='resume'),
 ]
