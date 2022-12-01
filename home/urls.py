@@ -2,7 +2,8 @@ from home import views
 from django.urls import path
 from home.views import personal,education,experience,project,social,add_info,profileview
 urlpatterns=[
-    path('',views.home,name='home'),
+    # path('',views.home,name='home'),
+    path('',views.profileview,name='profileview'),
     path('personal',views.personal,name='personal'),
     path('education',views.education,name='education'),
     path('experience',views.experience,name='experience'),
@@ -11,5 +12,5 @@ urlpatterns=[
     path('add_info',views.add_info,name='add_info'),
     path('certification',views.certification,name='certification'),
     path('resume',views.resume,name='resume'),
-    path('profileview',views.profileview,name='profileview'),
+    
 ]

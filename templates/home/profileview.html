@@ -85,35 +85,29 @@
             right: 30px;
         }
 
-        .section2 {
-            position: relative;
-            padding: 100px 50px 10px 50px;
-        }
-
-        .section3 {
-            position: relative;
-            padding: 100px 50px 10px 50px;
-        }
-
-        .section4 {
-            position: relative;
-            padding: 100px 50px 10px 50px;
-        }
-
+        .section2,
+        .section3,
+        .section4,
         .section5 {
             position: relative;
-            padding: 100px 50px 10px 50px;
+            padding: 40px 50px 10px 50px;
         }
+
 
         span {
             font-weight: bold;
             font-size: 17px"
 
         }
+
+        .section6 {
+            padding: 20px;
+        }
     </style>
 </head>
 
 <body>
+    {% comment %} personal Section {% endcomment %}
     <section class="section1">
         <div class="coverpage">
             <div class="camera">
@@ -121,50 +115,10 @@
         </div>
         <div class="username">
             <div>
-                <h1 style="display: inline-block;">{{personal.name}}</h1>
+                <h1 style="display: inline-block;">{{personal.name}} </h1>
                 <p style="display: inline-block;">({{personal.sex}}, {{personal.age}})</p>
-
+                <p>{{personal.city}},{{personal.state}},{{personal.country}}</p>
                 <h4>Python Developer</h4>
-
-                {% comment %} Contact button {% endcomment %}
-                
-                <button type="button" class="btn btn-success mr-2 my-2" data-bs-toggle="modal" data-bs-target="#contactModal">
-                    Contact Info
-                </button><br>
-
-                {% comment %} contact Modal {% endcomment %}
-
-                <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="projectModalLabel">Projects</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action="/profile/project">
-                                    {% csrf_token %}
-                                    <div class="form-group mb-2">
-                                        <label for="name">Project Name</label>
-                                        <input type="text" class="form-control" id="name" name='name' required="true">
-                                    </div>
-            
-                                    <div class="form-group mb-2">
-                                        <label for="desc">Project Description</label>
-                                        <input type="text" class="form-control" id="desc" name='desc' required="true">
-                                    </div>
-            
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-            
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
 
@@ -175,21 +129,25 @@
                 </p>
                 <p><span>Mobile: </span>{{personal.mobile}}</p>
                 <p><span>Email: </span>{{personal.email}}</p>
-                <p><span>Location: </span>{{personal.city}},{{personal.state}},{{personal.country}}</p>
+
             </div>
 
             <div class="edit">
-                <button type="button" class="btn btn-success mr-2 my-2" style="border-radius:50%;width:50px; height:50px;" data-bs-toggle="modal" data-bs-target="#personalModal">
+                <button type="button" class="btn btn-success mr-2 my-2"
+                    style="border-radius:50%;width:50px; height:50px;" data-bs-toggle="modal"
+                    data-bs-target="#personalModal">
                     +
                 </button>
-                
+
                 {% comment %} personal modal {% endcomment %}
-                <div class="modal fade" id="personalModal" tabindex="-1" aria-labelledby="personalModalLabel" aria-hidden="true">
+                <div class="modal fade" id="personalModal" tabindex="-1" aria-labelledby="personalModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="personalModalLabel">Modal title</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form method="post" action="/profile/personal">
@@ -199,22 +157,23 @@
                                         <input type="text" class="form-control" id="name" name='name'
                                             placeholder='Enter Your Full Name' required="true">
                                     </div>
-            
+
                                     <div class="form-group mb-2">
                                         <label for="email">Email address</label>
                                         <input type="email" class="form-control" id="email" name='email'
                                             placeholder='jc.junaid.chaudhary@gmail.com' aria-describedby="emailHelp"
                                             required="true">
-                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email
+                                            with anyone
                                             else.</small>
                                     </div>
-            
+
                                     <div class="form-group mb-2">
                                         <label for="phone">Phone</label>
-                                        <input type="tel" class="form-control" pattern="[0-9]{10}" id="phone" name='phone'
-                                            placeholder='9702737441'>
+                                        <input type="tel" class="form-control" pattern="[0-9]{10}" id="phone"
+                                            name='phone' placeholder='9702737441'>
                                     </div>
-            
+
                                     <div class="mb-2">
                                         <label for="inputSex" class="form-label">Sex</label>
                                         <select id="inputSex" class="form-select" name="sex">
@@ -223,28 +182,30 @@
                                             <option>Female</option>
                                         </select>
                                     </div>
-            
+
                                     <div class="form-group mb-2">
                                         <label for="dob">Date of Birth</label>
-                                        <input type="date" class="form-control" id="dob" name='dob' placeholder='dd/mm/yyyy'>
+                                        <input type="date" class="form-control" id="dob" name='dob'
+                                            placeholder='dd/mm/yyyy'>
                                     </div>
-            
+
                                     <div class="mb-2">
                                         <label for="formFile" class="form-label">Profile Picture</label>
                                         <input class="form-control" type="file" id="formFile" name="picture">
                                     </div>
-            
+
                                     <div class="form-group">
                                         <label for="objctive">Objctive</label>
-                                        <textarea class="form-control" id="objctive" name="objective" rows="2"></textarea>
+                                        <textarea class="form-control" id="objctive" name="objective"
+                                            rows="2"></textarea>
                                     </div>
-            
-            
+
+
                                     <div class="mb-2">
                                         <label for="inputCountry" class="form-label">Country</label>
                                         <input type="text" class="form-control" id="inputCountry" , name="country">
                                     </div>
-            
+
                                     <div class="mb-2">
                                         <label for="inputState" class="form-label">State</label>
                                         <select id="inputState" class="form-select" name="state">
@@ -254,19 +215,20 @@
                                             <option>Uttar Pardesh</option>
                                         </select>
                                     </div>
-            
+
                                     <div class="mb-2">
                                         <label for="inputCity" class="form-label">City</label>
                                         <input type="text" class="form-control" id="inputCity" name="city">
                                     </div>
-            
+
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
                                 </form>
                             </div>
-            
+
                         </div>
                     </div>
                 </div>
@@ -275,226 +237,349 @@
             </div>
 
         </div>
-        
+
         <div class="image">
         </div>
     </section>
 
 
+    {% comment %} Experiance Section {% endcomment %}
     <section class="section2">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-            <h1>Experience</h1>
-            <ul>
-                <li>User_1:</li>
-                <ul>
-                    <li>Orex info</li>
-                    <li>june:Present</li>
-                    <li>Mumbai,Maharashtra</li>
-                </ul>
-            </ul>
+        <h1>Experience</h1>
+        {% for exp in experience %}
+        <div class="shadow p-3 mb-3 bg-white rounded">
+            <h5>{{exp.designation}}</h5>
+            <p>{{exp.company_name}}, {{exp.location}}</p>
+            <p>Working on following technologies: <br>
+                {{exp.workingOn}}<br>
+                ({{exp.joining_date}} - {{exp.leaving_date}})
+            </p>
         </div>
+        {% endfor %}
 
         <div class="edit">
-            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
-                data-toggle="modal" data-target="#workModal">
+            <button type="button" class="btn btn-success mr-2 my-2" style="border-radius:50%;width:50px; height:50px;"
+                data-bs-toggle="modal" data-bs-target="#experianceModal">
                 +
             </button>
-            <div class="modal fade" id="workModal" tabindex="-1" aria-labelledby="workModal" aria-hidden="true">
+
+            <!--Experiance Modal -->
+            <div class="modal fade" id="experianceModal" tabindex="-1" aria-labelledby="experianceModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="workModalTitle">Work Experience</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h1 class="modal-title fs-5" id="experianceModalLabel">Experiance</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="workexperience/" method='POST'> {% csrf_token %}
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="company_name" name="company_name"
-                                        placeholder="Enter Your Company Name">
+                            <form method="post" action="/profile/experience">
+                                {% csrf_token %}
+                                <div class="form-group mb-2">
+                                    <label for="company">Company Name</label>
+                                    <input type="text" class="form-control" id="name" name='company' required="true">
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="location" name="location"
-                                        placeholder="Enter Your location">
+
+
+                                <div class="form-group mb-2">
+                                    <label for="location">Location</label>
+                                    <input type="text" class="form-control" id="location" name='location'>
                                 </div>
-                                <div class="form-group">
-                                    <input type="date" class="form-control" id="jd" name="jd"
-                                        placeholder="Select Your Joining Date">
+
+                                <div class="form-group mb-2">
+                                    <label for="joining_date">Joining Date</label>
+                                    <input type="date" class="form-control" id="joining_date" name='joining_date'>
                                 </div>
-                                <div class="form-group">
-                                    <input type="date" class="form-control" id="ed" name="ed"
-                                        placeholder="Select Your End Date">
+
+                                <div class="form-group mb-2">
+                                    <label for="leaving_date">End Date</label>
+                                    <input type="date" class="form-control" id="leaving_date" name='leaving_date'>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="designation" name="designation"
-                                        placeholder="Enter Your designation">
+
+                                <div class="form-group mb-2">
+                                    <label for="designation">Designation</label>
+                                    <input type="text" class="form-control" id="designation" name='designation'>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="working_on" name="working_on"
-                                        placeholder="Enter Your working on">
+
+                                <div class="form-group mb-2">
+                                    <label for="total_Experience">Working On</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" , id="workingOn" name="workingOn">
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
+
     </section>
 
+    {% comment %} Education Section {% endcomment %}
     <section class="section3">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-            <h1>Education</h1>
-            <ul>
-                <li>User_1:</li>
-                <ul>
-                    <li>Orex info</li>
-                    <li>june:Present</li>
-                    <li>Mumbai,Maharashtra</li>
-                </ul>
-            </ul>
+        <h1>Education</h1>
+        {% for edu in education %}
+        <div class="shadow p-3 mb-3 bg-white rounded">
+            <span>{{edu.institute}}</span>
+            <h6>{{edu.education}}</h6>
+            <p>Grade: {{edu.percentage}} <br>
+                Passing Year: {{edu.passing_year}}
+            </p>
         </div>
+        {% endfor %}
 
         <div class="edit">
-            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
-                data-toggle="modal" data-target="#educationModal">
+            <button type="button" class="btn btn-success mr-2 my-2" style="border-radius:50%;width:50px; height:50px;"
+                data-bs-toggle="modal" data-bs-target="#educationModal">
                 +
             </button>
-            <div class="modal fade" id="educationModal" tabindex="-1" aria-labelledby="educationModal"
+            <!--Education Modal -->
+            <div class="modal fade" id="educationModal" tabindex="-1" aria-labelledby="educationModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="educationModalTitle">Education</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Education</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="education/" method='POST'> {% csrf_token %}
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="institute" name="institute"
-                                        placeholder="Enter Your Institute">
+                            <form method="post" action="/profile/education">
+                                {% csrf_token %}
+                                <div class="mb-2">
+                                    <label for="inputEducation" class="form-label">Education</label>
+                                    <input type="text" placeholder='SSC/HSC/BE-IT' class="form-control" id="education"
+                                        name='education' required="true">
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="education" name="education"
-                                        placeholder="Enter Your Education">
+
+                                <div class="form-group mb-2">
+                                    <label for="institute">Institute Name</label>
+                                    <input type="text" class="form-control" id="institute" name='institute'
+                                        required="true">
                                 </div>
-                                <div class="form-group">
-                                    <input type="date" class="form-control" id="passing_year" name="passing_year"
-                                        placeholder="Enter Your passing_year">
+
+                                <div class="form-group mb-2">
+                                    <label for="percentage">Percentage</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" , id="percentage" name="percentage">
+                                        <span class="input-group-text">%</span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" id="score" name="score"
-                                        placeholder="Enter Your Score">
+
+
+                                <div class="form-group mb-2">
+                                    <label for="passing_year">Passing Year</label>
+                                    <input type="text" class="form-control" id="passing_year" name='passing_year'>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
     </section>
 
+    {% comment %} Project Section {% endcomment %}
     <section class="section4">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-            <h1>Project</h1>
-            <ul>
-                <li>User_1:</li>
-                <ul>
-                    <li>Project Blue Book; Creative Titles for Projects. Creating a title for a creative project helps
-                        define and spread a project idea. Here’s our list of creatives! Golden Kangaroo; </li>
-                    <li>Focus on the 4 C’s: A good project description follows the 4 C’s of writing. Clear: Keep writing
-                        straight to the point...
-                        Clear: Keep writing straight to the point and don’t include unnecessary jargon.
-                        Concise: Focus on the project itself, rather than on background information.</li>
-                </ul>
-            </ul>
+        <h1>Project</h1>
+        {% for project in projects %}
+        <div class="shadow p-3 mb-3 bg-white rounded">
+            <h5>{{project.project_name}}</h5>
+            <p>{{project.project_desc}}</p>
         </div>
-
+        {% endfor %}
         <div class="edit">
-            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
-                data-toggle="modal" data-target="#projectModal">
+            <button type="button" class="btn btn-success mr-2 my-2" style="border-radius:50%;width:50px; height:50px;"
+                data-bs-toggle="modal" data-bs-target="#projectModal">
                 +
             </button>
-            <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModal" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="projectModalTitle">Project</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="project/" method='POST'> {% csrf_token %}
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="title" name="title"
-                                        placeholder="Enter Your Project title">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="description" name="description"
-                                        placeholder="Enter Your Project description">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
 
-
-    <section class="section5">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-            <h1>Additional Information</h1>
-            <ul>
-                <li>User_1:</li>
-                <ul>
-                    <li> </li>
-                    <li></li>
-                </ul>
-            </ul>
-        </div>
-
-        <div class="edit">
-            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
-                data-toggle="modal" data-target="#additionalModal">
-                +
-            </button>
-            <div class="modal fade" id="additionalModal" tabindex="-1" aria-labelledby="additionalModal"
+            <!--Project Modal -->
+            <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="additionalModalTitle">Additional Information</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h1 class="modal-title fs-5" id="projectModalLabel">Projects</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="additionalinfo/" method='POST'> {% csrf_token %}
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="language" name="language"
-                                        placeholder="Enter Your language">
+                            <form method="post" action="/profile/project">
+                                {% csrf_token %}
+                                <div class="form-group mb-2">
+                                    <label for="name">Project Name</label>
+                                    <input type="text" class="form-control" id="name" name='name' required="true">
                                 </div>
-                                <div class="form-group">
-                                    <input type="url" class="form-control" id="personal_wl" name="personal_wl"
-                                        placeholder="Drop Your Personal Website">
+
+                                <div class="form-group mb-2">
+                                    <label for="desc">Project Description</label>
+                                    <input type="text" class="form-control" id="desc" name='desc' required="true">
                                 </div>
-                                <div class="form-group">
-                                    <input type="textarea" class="form-control" id="skill" name="skill"
-                                        placeholder="Enter Your Skill">
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
     </section>
 
-    <button type="submit" class="btn btn-success">Generate CV</button>
+    {% comment %} Additional Info Section {% endcomment %}
+    <section class="section5">
+        <h1>Additional Information</h1>
+        <div class="shadow p-3 mb-3 bg-white rounded">
+            <h5>Skills</h5>
+            <p>{{add_Info.skills}}</p>
+            <h5>Marital Status</h5>
+            <p>{{add_Info.marital_Status}}</p>
+            <h5>Website</h5>
+            <a href={{add_Info.website}}>
+                <p>{{add_Info.website}}</p>
+            </a>
+            <h5>Language</h5>
+            <p>{{add_Info.language}}</p>
+        </div>
+        </div>
+
+        <div class="edit">
+            <button type="button" class="btn btn-success mr-2 my-2" style="border-radius:50%;width:50px; height:50px;"
+                data-bs-toggle="modal" data-bs-target="#additionalModal">
+                +
+            </button>
+            <!--Additional Information Modal -->
+            <div class="modal fade" id="additionalModal" tabindex="-1" aria-labelledby="additionalModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="additionalModalLabel">Additional Information</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="/profile/add_info">
+                                {% csrf_token %}
+                                <div class="form-group mb-2">
+                                    <label for="skills">Skills</label>
+                                    <input type="text" class="form-control" id="skills" name='skills' required="true">
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="marital_status" class="form-label">Marital Status</label>
+                                    <select id="marital_status" class="form-select" name="marital_status">
+                                        <option selected>Choose...</option>
+                                        <option>Single</option>
+                                        <option>Married</option>
+                                        <option>Divorced</option>
+                                        <option>Seprated</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label for="website">Website Link</label>
+                                    <input type="url" class="form-control" id="website" name='website' required="true">
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="language" class="form-label">Language</label>
+                                    <input type="text" class="form-control" id="language" name="language">
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    {% comment %} Additional Info Section {% endcomment %}
+    <section class="section5">
+        <h1>Social Media</h1>
+        {% for soc in social %}
+        <div class="shadow p-3 mb-3 bg-white rounded">
+            <h5>{{soc.social_profile}}</h5>
+            <a href={{soc.url}}>
+                <p>{{soc.url}}</p>
+            </a>
+        </div>
+        {% endfor %}
+        </div>
+
+        <div class="edit">
+            <button type="button" class="btn btn-success mr-2 my-2" style="border-radius:50%;width:50px; height:50px;"
+                data-bs-toggle="modal" data-bs-target="#socialModal">
+                +
+            </button>
+            <!--Social_Profile Modal -->
+            <div class="modal fade" id="socialModal" tabindex="-1" aria-labelledby="socialModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="socialModalLabel">Projects</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="/profile/social">
+                                {% csrf_token %}
+
+                                <div class="mb-2">
+                                    <label for="name" class="form-label">Social Profile</label>
+                                    <select id="name" class="form-select" name="name">
+                                        <option selected>Choose...</option>
+                                        <option>LinkedIn</option>
+                                        <option>GitHub</option>
+                                        <option>Naukri.com</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label for="url">Link</label>
+                                    <input type="url" class="form-control" id="url" name='url' required="true">
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="section6" style="display: flex; justify-content: center;">
+        <a href="resume"><button type="submit"
+            class="btn btn-primary btn-lg">Generate CV</button></a></section>
+
 
 
 
@@ -516,8 +601,8 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 </body>

@@ -14,7 +14,6 @@ def home(request):
 def personal(request):
     if request.method == 'POST':
         user_id=request.user.id
-        # print("user...........................",user_id)
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
@@ -29,9 +28,9 @@ def personal(request):
         messages.success(request, 'Your message has been sent!')
         details=Personal.objects.create(user_id=user_id, name=name,email=email,mobile=phone,sex=sex,dob=dob,profile_picture=picture,objective=objective,country=country,state=state,city=city)
         details.save()
-        return redirect('home')
         
-    # return HttpResponse("personal details")
+        
+    return redirect('profileview')
 
 def education(request):
     if request.method == 'POST':
@@ -45,9 +44,7 @@ def education(request):
         messages.success(request, 'Your message has been sent!')
         details=Education.objects.create(user_id=user_id, institute=institute,education=education,percentage=percentage,passing_year=passing_year)
         details.save()
-        return redirect('home')
-    return HttpResponse('Education')
-    # return render(request, 'home/index.html')
+    return redirect('profileview')
 
 def experience(request):
     if request.method == 'POST':
@@ -62,8 +59,9 @@ def experience(request):
         messages.success(request, 'Your message has been sent!')
         details=Experience.objects.create(user_id=user_id, company_name=company,location=location,joining_date=joining_date,leaving_date=leaving_date,designation=designation,workingOn=workingOn)
         details.save()
-        return redirect('home')
-    return HttpResponse("experieance")
+
+    return redirect('profileview')
+
 
 def project(request):
     if request.method == 'POST':
@@ -74,8 +72,8 @@ def project(request):
         details=Project.objects.create(user_id=user_id, project_name=name,project_desc=desc)
         details.save()
         messages.success(request, 'Your message has been sent!')
-        return redirect('home')
-    return HttpResponse("Project")
+    
+    return redirect('profileview')
 
 def social(request):
     if request.method=='POST':
@@ -86,8 +84,8 @@ def social(request):
         details=SocialProfile.objects.create(user_id=user_id,social_profile=profile,url=url)
         details.save()
         messages.success(request, 'Your message has been sent!')
-        return redirect('home')
-    return HttpResponse("Social Education")
+    
+    return redirect('profileview')
 
 def add_info(request):
     if request.method=='POST':
@@ -100,8 +98,7 @@ def add_info(request):
         details=AdditionalInfo.objects.create(user_id=user_id,skills=skills,marital_Status=marital_status,website=website,language=language)
         details.save()
         messages.success(request, 'Your message has been sent!')
-        return redirect('home')
-    return HttpResponse("Additional Info")
+    return redirect('profileview')
 
 def certification(request):
     if request.method=='POST':
@@ -126,23 +123,23 @@ def resume(request):
     add_Info=AdditionalInfo.objects.get(user_id=id)
     # certify=Certification.objects.get(user_id=id)
     generateResume(personal=personal,education=education,experience=experience,projects=project,social=social,add_Info=add_Info)
-    return HttpResponse(personal.name)
+    return redirect('profileview')
 
 def profileview(request):
     id=request.user.id
-    personal=Personal.objects.get(user_id=id)
-    
-    dob=personal.dob.year
-    print(dob)
-    today = date.today().year
-    print(today)
-    personal.age=today-dob
-    # education=Education.objects.filter(user_id=id)
-    # experience=Experience.objects.filter(user_id=id)
-    # project=Project.objects.filter(user_id=id)
-    # social=SocialProfile.objects.filter(user_id=id)
-    # add_Info=AdditionalInfo.objects.get(user_id=id)
-    return render(request,'home/profileview.html',{'personal':personal})
+    try:
+        personal=Personal.objects.get(user_id=id)
+        dob=personal.dob.year
+        today = date.today().year
+        personal.age=today-dob
+    except :
+        personal=""
+    education=Education.objects.filter(user_id=id)
+    experience=Experience.objects.filter(user_id=id)
+    projects=Project.objects.filter(user_id=id)
+    social=SocialProfile.objects.filter(user_id=id)
+    add_Info=AdditionalInfo.objects.get(user_id=id)
+    return render(request,'home/profileview.html',{'personal':personal,'education':education,'experience':experience,'projects':projects,'add_Info':add_Info,'social':social})
     # return HttpResponse("hello")
 
 

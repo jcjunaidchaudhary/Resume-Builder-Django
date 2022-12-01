@@ -248,7 +248,7 @@ def generateResume(personal,education,experience,projects,social,add_Info):
     add_hyperlink(website,f'{add_Info.website}', f"{add_Info.website}")
 
 
-    document.save('Resume.docx')
+    document.save('media/Resume.docx')
 
 
 
