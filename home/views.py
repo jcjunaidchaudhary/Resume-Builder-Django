@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
+from datetime import timedelta,date
 
 from home.models import *
 from home.resume import generateResume
@@ -126,3 +127,22 @@ def resume(request):
     # certify=Certification.objects.get(user_id=id)
     generateResume(personal=personal,education=education,experience=experience,projects=project,social=social,add_Info=add_Info)
     return HttpResponse(personal.name)
+
+def profileview(request):
+    id=request.user.id
+    personal=Personal.objects.get(user_id=id)
+    
+    dob=personal.dob.year
+    print(dob)
+    today = date.today().year
+    print(today)
+    personal.age=today-dob
+    # education=Education.objects.filter(user_id=id)
+    # experience=Experience.objects.filter(user_id=id)
+    # project=Project.objects.filter(user_id=id)
+    # social=SocialProfile.objects.filter(user_id=id)
+    # add_Info=AdditionalInfo.objects.get(user_id=id)
+    return render(request,'home/profileview.html',{'personal':personal})
+    # return HttpResponse("hello")
+
+

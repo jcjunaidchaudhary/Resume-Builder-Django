@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Linkdin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: powderblue;
+        }
+
+        section {
+            border-radius: 15px;
+            background-color: whitesmoke;
+            margin: 10px 10%;
+            position: relative;
+        }
+
+        .section1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 10%;
+            position: relative;
+        }
+
+        .coverpage {
+            border-radius: 15px 15px 0px 0px;
+            background-color: grey;
+            height: 144px;
+            width: 100%;
+            position: relative;
+        }
+
+        .camera {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-color: antiquewhite;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background-image: url('https://tse2.mm.bing.net/th?id=OIP.GY2pOe-LZ5UrZb665jhVxAHaHa&pid=Api&P=0');
+            background-size: cover;
+        }
+
+        .username {
+            border-radius: 0px 0px 15px 15px;
+            background-color: whitesmoke;
+            width: 100%;
+            position: relative;
+            padding: 100px 50px 10px 50px;
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background-image: url('https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg');
+            background-size: cover;
+            position: absolute;
+            left: 50px;
+            top: 70px;
+
+        }
+
+        .edit {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .section2 {
+            position: relative;
+            padding: 100px 50px 10px 50px;
+        }
+
+        .section3 {
+            position: relative;
+            padding: 100px 50px 10px 50px;
+        }
+
+        .section4 {
+            position: relative;
+            padding: 100px 50px 10px 50px;
+        }
+
+        .section5 {
+            position: relative;
+            padding: 100px 50px 10px 50px;
+        }
+
+        span {
+            font-weight: bold;
+            font-size: 17px"
+
+        }
+    </style>
+</head>
+
+<body>
+    <section class="section1">
+        <div class="coverpage">
+            <div class="camera">
+            </div>
+        </div>
+        <div class="username">
+            <div>
+                <h1 style="display: inline-block;">{{personal.name}}</h1>
+                <p style="display: inline-block;">({{personal.sex}}, {{personal.age}})</p>
+
+                <h4>Python Developer</h4>
+
+                {% comment %} Contact button {% endcomment %}
+                
+                <button type="button" class="btn btn-success mr-2 my-2" data-bs-toggle="modal" data-bs-target="#contactModal">
+                    Contact Info
+                </button><br>
+
+                {% comment %} contact Modal {% endcomment %}
+
+                <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="projectModalLabel">Projects</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="/profile/project">
+                                    {% csrf_token %}
+                                    <div class="form-group mb-2">
+                                        <label for="name">Project Name</label>
+                                        <input type="text" class="form-control" id="name" name='name' required="true">
+                                    </div>
+            
+                                    <div class="form-group mb-2">
+                                        <label for="desc">Project Description</label>
+                                        <input type="text" class="form-control" id="desc" name='desc' required="true">
+                                    </div>
+            
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div>
+                <h3>Objective</h3>
+                <p>{{personal.objective}}
+                </p>
+                <p><span>Mobile: </span>{{personal.mobile}}</p>
+                <p><span>Email: </span>{{personal.email}}</p>
+                <p><span>Location: </span>{{personal.city}},{{personal.state}},{{personal.country}}</p>
+            </div>
+
+            <div class="edit">
+                <button type="button" class="btn btn-success mr-2 my-2" style="border-radius:50%;width:50px; height:50px;" data-bs-toggle="modal" data-bs-target="#personalModal">
+                    +
+                </button>
+                
+                {% comment %} personal modal {% endcomment %}
+                <div class="modal fade" id="personalModal" tabindex="-1" aria-labelledby="personalModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="personalModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="/profile/personal">
+                                    {% csrf_token %}
+                                    <div class="form-group mb-2">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name='name'
+                                            placeholder='Enter Your Full Name' required="true">
+                                    </div>
+            
+                                    <div class="form-group mb-2">
+                                        <label for="email">Email address</label>
+                                        <input type="email" class="form-control" id="email" name='email'
+                                            placeholder='jc.junaid.chaudhary@gmail.com' aria-describedby="emailHelp"
+                                            required="true">
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                            else.</small>
+                                    </div>
+            
+                                    <div class="form-group mb-2">
+                                        <label for="phone">Phone</label>
+                                        <input type="tel" class="form-control" pattern="[0-9]{10}" id="phone" name='phone'
+                                            placeholder='9702737441'>
+                                    </div>
+            
+                                    <div class="mb-2">
+                                        <label for="inputSex" class="form-label">Sex</label>
+                                        <select id="inputSex" class="form-select" name="sex">
+                                            <option selected>Choose...</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </div>
+            
+                                    <div class="form-group mb-2">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" class="form-control" id="dob" name='dob' placeholder='dd/mm/yyyy'>
+                                    </div>
+            
+                                    <div class="mb-2">
+                                        <label for="formFile" class="form-label">Profile Picture</label>
+                                        <input class="form-control" type="file" id="formFile" name="picture">
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="objctive">Objctive</label>
+                                        <textarea class="form-control" id="objctive" name="objective" rows="2"></textarea>
+                                    </div>
+            
+            
+                                    <div class="mb-2">
+                                        <label for="inputCountry" class="form-label">Country</label>
+                                        <input type="text" class="form-control" id="inputCountry" , name="country">
+                                    </div>
+            
+                                    <div class="mb-2">
+                                        <label for="inputState" class="form-label">State</label>
+                                        <select id="inputState" class="form-select" name="state">
+                                            <option selected>Choose...</option>
+                                            <option>Maharashtra</option>
+                                            <option>Gujrat</option>
+                                            <option>Uttar Pardesh</option>
+                                        </select>
+                                    </div>
+            
+                                    <div class="mb-2">
+                                        <label for="inputCity" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="inputCity" name="city">
+                                    </div>
+            
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        
+        <div class="image">
+        </div>
+    </section>
+
+
+    <section class="section2">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1>Experience</h1>
+            <ul>
+                <li>User_1:</li>
+                <ul>
+                    <li>Orex info</li>
+                    <li>june:Present</li>
+                    <li>Mumbai,Maharashtra</li>
+                </ul>
+            </ul>
+        </div>
+
+        <div class="edit">
+            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
+                data-toggle="modal" data-target="#workModal">
+                +
+            </button>
+            <div class="modal fade" id="workModal" tabindex="-1" aria-labelledby="workModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="workModalTitle">Work Experience</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="workexperience/" method='POST'> {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="company_name" name="company_name"
+                                        placeholder="Enter Your Company Name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="location" name="location"
+                                        placeholder="Enter Your location">
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" class="form-control" id="jd" name="jd"
+                                        placeholder="Select Your Joining Date">
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" class="form-control" id="ed" name="ed"
+                                        placeholder="Select Your End Date">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="designation" name="designation"
+                                        placeholder="Enter Your designation">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="working_on" name="working_on"
+                                        placeholder="Enter Your working on">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="section3">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1>Education</h1>
+            <ul>
+                <li>User_1:</li>
+                <ul>
+                    <li>Orex info</li>
+                    <li>june:Present</li>
+                    <li>Mumbai,Maharashtra</li>
+                </ul>
+            </ul>
+        </div>
+
+        <div class="edit">
+            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
+                data-toggle="modal" data-target="#educationModal">
+                +
+            </button>
+            <div class="modal fade" id="educationModal" tabindex="-1" aria-labelledby="educationModal"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="educationModalTitle">Education</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="education/" method='POST'> {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="institute" name="institute"
+                                        placeholder="Enter Your Institute">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="education" name="education"
+                                        placeholder="Enter Your Education">
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" class="form-control" id="passing_year" name="passing_year"
+                                        placeholder="Enter Your passing_year">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" id="score" name="score"
+                                        placeholder="Enter Your Score">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="section4">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1>Project</h1>
+            <ul>
+                <li>User_1:</li>
+                <ul>
+                    <li>Project Blue Book; Creative Titles for Projects. Creating a title for a creative project helps
+                        define and spread a project idea. Here’s our list of creatives! Golden Kangaroo; </li>
+                    <li>Focus on the 4 C’s: A good project description follows the 4 C’s of writing. Clear: Keep writing
+                        straight to the point...
+                        Clear: Keep writing straight to the point and don’t include unnecessary jargon.
+                        Concise: Focus on the project itself, rather than on background information.</li>
+                </ul>
+            </ul>
+        </div>
+
+        <div class="edit">
+            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
+                data-toggle="modal" data-target="#projectModal">
+                +
+            </button>
+            <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="projectModalTitle">Project</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="project/" method='POST'> {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="title" name="title"
+                                        placeholder="Enter Your Project title">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="description" name="description"
+                                        placeholder="Enter Your Project description">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+    <section class="section5">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1>Additional Information</h1>
+            <ul>
+                <li>User_1:</li>
+                <ul>
+                    <li> </li>
+                    <li></li>
+                </ul>
+            </ul>
+        </div>
+
+        <div class="edit">
+            <button type="button" style="border-radius:50%;width:50px; height:50px;" class="btn btn-success mr-2 my-2"
+                data-toggle="modal" data-target="#additionalModal">
+                +
+            </button>
+            <div class="modal fade" id="additionalModal" tabindex="-1" aria-labelledby="additionalModal"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="additionalModalTitle">Additional Information</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="additionalinfo/" method='POST'> {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="language" name="language"
+                                        placeholder="Enter Your language">
+                                </div>
+                                <div class="form-group">
+                                    <input type="url" class="form-control" id="personal_wl" name="personal_wl"
+                                        placeholder="Drop Your Personal Website">
+                                </div>
+                                <div class="form-group">
+                                    <input type="textarea" class="form-control" id="skill" name="skill"
+                                        placeholder="Enter Your Skill">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <button type="submit" class="btn btn-success">Generate CV</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -6,7 +6,7 @@ class Personal(models.Model):
     name = models.CharField( max_length=50)
     mobile=models.CharField(max_length=13,default=None)
     email=models.EmailField(max_length=255)
-    profile_picture = models.ImageField(upload_to ='profile/',default='')
+    profile_picture = models.ImageField(upload_to ='',default='')
     sex=models.CharField(max_length=10)
     dob=models.DateField(max_length=8)
     country=models.CharField(max_length=100)
@@ -89,3 +89,4 @@ class Certification(models.Model):
 
     def __str__(self):
         return self.user.username
+        
